@@ -459,9 +459,6 @@ service Wallet {
   rpc GetDelegatedResource (DelegatedResourceMessage) returns (DelegatedResourceList) {
   };
 
-  rpc GetDelegatedResourceAccountIndex (BytesMessage) returns (DelegatedResourceAccountIndex) {
-  };
-
   rpc ListProposals (EmptyMessage) returns (ProposalList) {
     option (google.api.http) = {
       post: "/wallet/listproposals"
@@ -1135,6 +1132,9 @@ message AccountResourceMessage {
   map<string, int64> assetNetLimit = 6;
   int64 TotalNetLimit = 7;
   int64 TotalNetWeight = 8;
+  int64 TotalTronPowerWeight = 9;
+  int64 tronPowerUsed = 10;
+  int64 tronPowerLimit = 11;
 
   int64 EnergyUsed = 13;
   int64 EnergyLimit = 14;
@@ -1192,6 +1192,9 @@ message TransactionExtention {
   bytes txid = 2; //transaction id = sha256(transaction.raw_data)
   repeated bytes constant_result = 3;
   Return result = 4;
+  int64 energy_used = 5;
+  repeated TransactionInfo.Log logs = 6;
+  repeated InternalTransaction internal_transactions = 7;
 }
 
 message BlockExtention {
